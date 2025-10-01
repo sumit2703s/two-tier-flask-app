@@ -45,4 +45,3 @@ stop:
 clean: stop
 	$(DOCKER_COMPOSE) rm -f
 	docker system prune -f
-

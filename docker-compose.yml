@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   mysql:
-    user: "${UID}:${GID}" 
+    user: "${UID}:${GID}"
     image: mysql:5.7
     container_name: mysql
     environment:
@@ -11,7 +11,7 @@ services:
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
     volumes:
-      - ./mysql-data:/var/lib/mysql  
+      - ./mysql-data:/var/lib/mysql
     networks:
       - twotier
     healthcheck:
@@ -21,8 +21,8 @@ services:
       retries: 5
       start_period: 60s
 
-  flask-app:  
-  image: sumit2703/flask-app-image:latest
+  flask-app:
+    image: sumit2703/flask-app-image:latest
     container_name: flask-app
     ports:
       - "5000:5000"
@@ -45,3 +45,4 @@ services:
 
 networks:
   twotier:
+
