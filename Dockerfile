@@ -25,5 +25,4 @@ RUN apt-get update && \
 # Copy dependencies and application code from the builder stage
 COPY --from=builder /usr/local/lib/python3.9/site-packages/ /usr/local/lib/python3.9/site-packages/
 COPY . .
-EXPOSE 5000
 CMD ["python", "app.py"]
