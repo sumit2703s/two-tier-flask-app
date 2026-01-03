@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = "sumit2703/flask-app-image"
+        TAG = "latest"
+    }
+    stages {
+
+        stage('Checkout Code') {
+            steps {
+                git url: 'https://github.com/sumit2703s/two-tier-flask-app.git', branch: "main"
+            }
+        }
+        stage('Docker Build') {
+            steps {
+                sh "docker build -t $IMAGE_NAME:$TAG ."
+            }
+        }
+        stage('Docker Login') {
+            steps {
+                withCredentials([usernamePassword(
+            credentialsId: 'dockerHubCreds',
+            usernameVariable: 'DOCKER_USER',
+            passwordVariable: 'DOCKER_PASS'
+        )]) {
+            sh '''
+            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+            '''
+        }
+            }
+        }
+        stage('Docker Push') {
+            steps {
+                sh "docker push $IMAGE_NAME:$TAG"
+            }
+        }
+
+        stage('Deploy using Docker Compose') {
+            steps {
+                sh "docker compose up -d --build"
+            }
+        }
+    }
+}
