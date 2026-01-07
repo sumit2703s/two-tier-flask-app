@@ -56,5 +56,6 @@ pipeline {
                 subject: 'Build Failed',
                 to: 'gaxoriv144@cucadas.com'
             }
+        }
     }
 }
