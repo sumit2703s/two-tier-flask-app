@@ -42,4 +42,19 @@ pipeline {
             }
         }
     }
+    post{
+        success{
+            script{
+                emailext body: 'Two Tier Flask App Build Successful',
+                subject: 'Build Success',
+                to: 'gaxoriv144@cucadas.com'
+            }
+        }
+        failure{
+            script{
+                emailext body: 'Two Tier Flask App Build Failed',
+                subject: 'Build Failed',
+                to: 'gaxoriv144@cucadas.com'
+            }
+    }
 }
