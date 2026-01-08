@@ -32,7 +32,7 @@ pipeline {
         }
         stage('Trivy File System Scan'){
             steps {
-                sh "trivy fs . -o reports.sarif"
+                sh "trivy fs . -o reports.json"
             }
         }
         stage('Docker Push') {
