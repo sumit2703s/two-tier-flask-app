@@ -25,14 +25,14 @@ pipeline {
         }
             }
         }
-        stage('Trivy File System Scan'){
-            steps {
-                sh "trivy fs . -o reports.sarif"
-            }
-        }
         stage('Docker Build') {
             steps {
                 sh "docker build -t $IMAGE_NAME:$TAG ."
+            }
+        }
+        stage('Trivy File System Scan'){
+            steps {
+                sh "trivy fs . -o reports.sarif"
             }
         }
         stage('Docker Push') {
