@@ -12,11 +12,6 @@ pipeline {
                 git url: 'https://github.com/sumit2703s/two-tier-flask-app.git', branch: "main"
             }
         }
-        stage('Docker Build') {
-            steps {
-                sh "docker build -t $IMAGE_NAME:$TAG ."
-            }
-        }
         stage('Docker Login') {
             steps {
                 withCredentials([usernamePassword(
@@ -28,6 +23,16 @@ pipeline {
             echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
             '''
         }
+            }
+        }
+        stage('Trivy File System Scan'){
+            steps {
+                sh "trivy fs . -o reports.sarif"
+            }
+        }
+        stage('Docker Build') {
+            steps {
+                sh "docker build -t $IMAGE_NAME:$TAG ."
             }
         }
         stage('Docker Push') {
