@@ -52,14 +52,14 @@ pipeline {
             script{
                 emailext body: 'Two Tier Flask App Build Successful',
                 subject: 'Build Success',
-                to: 'gaxoriv144@cucadas.com'
+                to: 'niborox578@feanzier.com'
             }
         }
         failure{
             script{
                 emailext body: 'Two Tier Flask App Build Failed',
                 subject: 'Build Failed',
-                to: 'gaxoriv144@cucadas.com'
+                to: 'niborox578@feanzier.com'
             }
         }
     }
